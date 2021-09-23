@@ -1,0 +1,104 @@
+
+<div class="jumbotron text-center">
+    <h1>Movie DB System</h1>
+  </div>
+  <!-- The navigation bar -->
+  <nav class="navbar navbar-expand-sm bg-light">
+    <ul class="navbar-nav">
+      <li class="nav-item" style="padding-left:0.2in">
+        <a class="btn btn-primary" (click)="changeSection(1)">List Movies</a>
+      </li>
+      <li class="nav-item" style="padding-left:0.2in">
+        <a class="btn btn-primary" (click)="changeSection(2)">Add Movie</a>
+      </li>
+      <li class="nav-item" style="padding-left:0.2in">
+        <a class="btn btn-primary" (click)="changeSection(3)">Add Actor to Movie</a>
+      </li>
+      <li class="nav-item" style="padding-left:0.2in">
+        <a class="btn btn-primary" (click)="changeSection(4)">Delete by Title</a>
+      </li>
+      <li class="nav-item" style="padding-left:0.2in">
+        <a class="btn btn-primary" (click)="changeSection(5)">Delete Movies Between Year1 & Year2</a>
+      </li>
+    </ul>
+  </nav>
+  <!-- First section: Display all in a tble -->
+  <div class="section" *ngIf="section==1">
+    <table class="table table-striped">
+      <tr>
+        <th>Title</th>
+        <th>Year</th>
+        <th>Actors</th>
+      </tr>
+      <tr *ngFor="let item of dB">
+        <td>{{item.title}}</td>
+        <td>{{item.year}}</td>
+        <td>{{item.actors}}</td>
+      </tr>
+    </table>
+  </div>
+  <!-- Second Section: Add new movie -->
+  <div class="section" *ngIf="section==2">
+    <div class="form-group">
+      <label for="mtitle">Title</label>
+      <input type="text" class="form-control" id="mtitle" [(ngModel)]="mTitle">
+    </div>
+    <div class="form-group">
+      <label for="myear">Produced Year</label>
+      <input type="number" class="form-control" id="myear" [(ngModel)]="mYear">
+    </div>
+    <button type="submit" class="btn btn-primary" (click)="onSaveMovie()">Save Movie</button>
+  </div>
+  <!-- Section 3: Add actor to Movie -->
+  <div class="section" *ngIf="section==3">
+    <p>Actors Details</p>
+    <table class="table table-striped">
+      <tr>
+        <th>Name</th>
+        <th>Birth Year</th>
+        <th>Select!</th>
+      </tr>
+      <tr *ngFor="let item of actorsDB">
+        <td>{{item.name}}</td>
+        <td>{{item.bYear}}</td>
+        <td><caption><button type="submit" class="btn btn-primary" (click)="onSelectActor(item._id)">select</button></caption></td>
+      </tr>
+    </table>
+    <hr>
+    <p>Movies Details</p>
+    <table class="table table-striped">
+        <tr>
+          <th>Title</th>
+          <th>Produced Year</th>
+          <th>Select!</th>
+        </tr>
+        <tr *ngFor="let item of dB">
+          <td>{{item.title}}</td>
+          <td>{{item.year}}</td>
+          <td><caption><button type="submit" class="btn btn-primary" (click)="onSelectMovie(item._id)">select</button></caption></td>
+        </tr>
+      </table>
+      <hr>
+      <button type="submit" class="btn btn-primary" (click)="onUpdateMovie()">Add Actor to Movie</button>
+    
+  </div>
+  <!-- Section 4: Delete Movies by Title -->
+  <div class="section" *ngIf="section==4">
+    <div class="form-group">
+        <label for="mtitle">Title</label>
+        <input type="text" class="form-control" id="mtitle" [(ngModel)]="mTitle">
+      </div>
+      <button type="submit" class="btn btn-primary" (click)="onDeleteActorTitle(mTitle)">Delete Movie By Title</button>
+  </div>
+  <!-- Section 5: Delete Movies by y1 and y2 -->
+  <div class="section" *ngIf="section==5">
+    <div class="form-group">
+        <label for="my1">Year 1</label>
+        <input type="number" class="form-control" id="my1" [(ngModel)]="my1">
+      </div>
+      <div class="form-group">
+        <label for="my2">Year 2</label>
+        <input type="number" class="form-control" id="my2" [(ngModel)]="my2">
+      </div>
+      <button type="submit" class="btn btn-primary" (click)="onDeleteY1Y2()">Delete Movies between Year1 & Year2</button>
+  </div>
